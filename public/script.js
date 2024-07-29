@@ -2,11 +2,11 @@
 const socket = io('http://localhost:4000',{
     reconnectionAttempts: Infinity, // we want to keep trying to reconnect indefinitely
     reconnectionDelay: 1000 ,// we want to wait 1 second before trying to reconnect
-})
+});
 // ----------------------------------------------------------------
 // username settings
 // let username = '';
-// if alredy exists a user:
+// if already exists a user:
 let username = localStorage.getItem('username') || '';
 
 document.addEventListener('DOMContentLoaded', () => {
