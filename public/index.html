@@ -10,15 +10,21 @@
       rel="stylesheet"
       type="text/css"
     />
-    <script src="/socket.io/socket.io.min.js" ></script>
+    <script src="/socket.io/socket.io.min.js"></script>
   </head>
-  <body class="">
-    <div class="container text-center h-screen p-10 transition-all">
-      <h1 class="text-3xl text-purple-600 font-bold">Chat App</h1>
+  <body class="bg-gradient-to-r
+    from-purple-100
+    via-blue-100
+    to-red-100
+    background-animate">
+    <div
+      class="container text-center h-screen flex flex-col items-center justify-center p-10 transition-all overflow-auto"
+    >
+      <h1 class="text-3xl text-purple-600 font-bold mb-10">Chat App</h1>
       <!-- username Form -->
       <div
         id="usernameForm"
-        class="flex flex-col items-center justify-center mt-4 "
+        class="flex flex-col items-center justify-center mt-4"
       >
         <input
           type="text"
@@ -37,12 +43,12 @@
       <!-- chat form -->
       <div
         id="chatForm"
-        class="flex flex-col items-center justify-center mt-4 z-0"
+        class="flex flex-col items-center justify-center mt-4 z-0 mb-10"
         style="display: none"
       >
         <div class="mb-4 self-center">
           <div
-            class="min-h-40 min-w-96 overflow-y-auto border-purple-600 border-2 rounded-lg w-max p-2 text-left"
+            class="min-h-40 min-w-80 md:min-w-96 overflow-y-auto border-purple-600 border-2 rounded-lg w-max p-2 text-left bg-white"
           >
             <ul id="messages">
               <!-- messages here, populated by js and socket.io -->
