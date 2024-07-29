@@ -16,13 +16,17 @@ io.on('connect',socket=>{
     // first arg of emit is the event name
     // second arg is the data to send which is pushed to the client/browser
     socket.emit('welcome','welcome message')
-    io.emit('newUser',socket.id)
     // THIS IS THE IMPORTANT PART
-    socket.on('sendMessageToServer',msg=>{
-        console.log('message:',msg)
-        io.emit('messageFromServerToAll',msg)
+    socket.on('newUser', username => {
+        socket.username = username;
+        io.emit('newUser', username);
+    });
+
+    socket.on('sendMessageToServer', ({ user, msg }) => {
+        console.log('message:', msg);
+        io.emit('messageFromServerToAll', { user, msg });
     })
-})
+});
 io.on("disconnect", (reason) => {
     console.log(reason); // "ping timeout"
   });
