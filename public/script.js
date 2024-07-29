@@ -5,7 +5,42 @@ const socket = io('http://localhost:4000',{
 })
 // ----------------------------------------------------------------
 // username settings
-let username = '';
+// let username = '';
+// if alredy exists a user:
+let username = localStorage.getItem('username') || '';
+
+document.addEventListener('DOMContentLoaded', () => {
+    if (username) {
+        document.getElementById('usernameForm').style.display = 'none';
+        document.getElementById('chatForm').style.display = 'flex';
+        socket.emit('newUser', username);
+    }
+});
+// chat history check
+
+socket.on('chatHistory', history => {
+    const messageList = document.getElementById('messages');
+    history.forEach(({ user, msg }) => {
+        const newMessage = document.createElement('li');
+        newMessage.innerHTML = `<span class="font-bold text-red-500">${user}</span>: ${msg}`;
+        messageList.appendChild(newMessage);
+    });
+});
+
+socket.on('userJoined', msg => {
+    const messageList = document.getElementById('messages');
+    const newMessage = document.createElement('li');
+    newMessage.innerHTML = `<span class="font-bold text-green-500 ">${msg}</span>`;
+    messageList.appendChild(newMessage);
+});
+
+socket.on('userLeft', msg => {
+    const messageList = document.getElementById('messages');
+    const newMessage = document.createElement('li');
+    newMessage.innerHTML = `<span class="font-bold text-gray-500 ">${msg}</span>`;
+    
+    messageList.appendChild(newMessage);
+});
 
 document.getElementById('setUsernameBtn').addEventListener('click', e => {
     e.preventDefault();
