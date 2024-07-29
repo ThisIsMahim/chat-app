@@ -1,12 +1,20 @@
-const express =require('express')
-const app = express()
-app.use(express.static('public'))
-const expressServer= app.listen(4000)
-const socketIo= require('socket.io')
+const express = require('express');
+const cors = require('cors'); // Add this line
+const app = express();
+app.use(cors()); // Add this line
+app.use(express.static('public'));
+
+const expressServer = app.listen(4000);
+const socketIo = require('socket.io');
+
 // io is the socket.io server
-const io= socketIo(expressServer,{
-    cors:{origin:['http://localhost:4000',]}
-})
+const io = socketIo(expressServer, {
+    cors: {
+        origin: 'https://chat-app-three-eta.vercel.app', // Allow requests from this origin
+        methods: ["GET", "POST"]
+    }
+});
+
 let users = [];
 let chatHistory = [];
 // on is a regular js/node event listener
