@@ -72,3 +72,12 @@ sendBtn.addEventListener('click',e=>{
     document.getElementById('messageInput').value='';
     socket.emit('sendMessageToServer', { user: username, msg: message })
 })
+
+// Handle connection errors
+socket.on('connect_error', () => {
+    alert('Connection failed. Please try again later.');
+});
+
+socket.on('disconnect', (reason) => {
+    console.log(reason); // "ping timeout"
+});
