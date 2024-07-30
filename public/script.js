@@ -1,4 +1,4 @@
-const socket = io("https://chat-app-three-eta.vercel.app", {
+const socket = io("http://localhost:4000", {
   reconnectionAttempts: Infinity, // we want to keep trying to reconnect indefinitely
   reconnectionDelay: 1000, // we want to wait 1 second before trying to reconnect
 });
