@@ -1,12 +1,8 @@
-// io() connects to the socket.io server at the url specified
-const socket = io("http://localhost:4000", {
+const socket = io("https://chat-app-three-eta.vercel.app", {
   reconnectionAttempts: Infinity, // we want to keep trying to reconnect indefinitely
   reconnectionDelay: 1000, // we want to wait 1 second before trying to reconnect
 });
-// ----------------------------------------------------------------
-// username settings
-// let username = '';
-// if already exists a user:
+
 let username = localStorage.getItem("username") || "";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -16,7 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
     socket.emit("newUser", username);
   }
 });
-// chat history check
 
 socket.on("chatHistory", (history) => {
   const messageList = document.getElementById("messages");
@@ -40,7 +35,6 @@ socket.on("userLeft", (msg) => {
   const newMessage = document.createElement("li");
   newMessage.classList.add("text-center");
   newMessage.innerHTML = `<span class="font-bold text-gray-500 ">${msg}</span>`;
-
   messageList.appendChild(newMessage);
 });
 
@@ -56,21 +50,16 @@ document.getElementById("setUsernameBtn").addEventListener("click", (e) => {
   }
 });
 
-// just like the server, our socket has an on method and an emit method
 socket.on("welcome", (data) => {
   console.log(data);
-  // emit a message to the server with the client's username
-  socket.on("newUser", (data) => {
-    console.log("A new client has joined:", data);
-  });
 });
+
 socket.on("messageFromServerToAll", ({ user, msg }) => {
   document.getElementById(
     "messages"
   ).innerHTML += `<li class="p-1 border-[1px] rounded-md w-max border-gray-300 mb-1 text-right"> <span class="font-bold text-red-500">${user}</span>: ${msg}</li>`;
 });
 
-// Message sent to the server
 const sendBtn = document.getElementById("sendMessageBtn");
 sendBtn.addEventListener("click", (e) => {
   e.preventDefault();
@@ -79,7 +68,6 @@ sendBtn.addEventListener("click", (e) => {
   socket.emit("sendMessageToServer", { user: username, msg: message });
 });
 
-// Handle connection errors
 socket.on("connect_error", () => {
   alert("Connection failed. Please try again later.");
 });
