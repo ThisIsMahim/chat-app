@@ -23,7 +23,7 @@ Follow these instructions to get a copy of the project up and running on your lo
 1. **Clone the repository and open server**
 
    ```bash
-   git clone https://github.com/yourusername/chat-app.git
+   git clone https://github.com/ThisIsMahim/chat-app.git
    cd chat-app
    node server.js
     ```
